@@ -5,20 +5,23 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-
+	
 public class BscanActivity extends Activity {
 	
-	String TAG = "BTEST";
+	String TAG = "BSCAN";
 	int REQUEST_ENABLE_BT = 1;
 	
 	public void startUsingBT() {
-		Log.i(TAG, "OK - Start using Bluetooth"); 
+		Intent intent = new Intent(this, BscanStartUsingBTActivity.class);
+		startActivity(intent);
 	}
 	
 	protected void onActivityResult (int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_ENABLE_BT) {
 			if (resultCode == RESULT_OK) {
 				Log.i(TAG, "Bluetooth enable OK.");
+				// launch activity which uses Bluetooth
+				startUsingBT();
 			} else {
 				Log.i(TAG, "Bluetooth enable NO.");
 			}
@@ -44,6 +47,9 @@ public class BscanActivity extends Activity {
         			Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
         			startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         			Log.i(TAG, "Enabling BlueTooth - asked");
+        		} else {
+        			// launch activity which uses Bluetooth
+        			startUsingBT();
         		}
         	} catch (Exception e) {
         		Log.i(TAG, "java.lang.SecurityException: " + e.getMessage());
