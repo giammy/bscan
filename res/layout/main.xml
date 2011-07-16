@@ -4,9 +4,43 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
+
 <TextView  
+    android:id="@+id/text_intro" 
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
-    android:text="@string/hello"
+    android:text="@string/intro"
+    android:paddingTop="20px" android:paddingBottom="10px"
     />
+    
+<TextView
+	android:id="@+id/text_hwsupported"   
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/is_bt_hw_supported"
+    android:paddingTop="10px" android:paddingBottom="10px"
+    />
+
+<TextView
+    android:id="@+id/text_swenabled" 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/is_bt_sw_supported"
+    android:paddingTop="10px" android:paddingBottom="10px"/>
+
+<Button 
+	android:text="@string/button_enablehw" 
+	android:id="@+id/button_enablehw" 
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content"
+	android:paddingTop="20px" android:paddingBottom="20px"
+	></Button>
+
+<Button 
+	android:text="@string/button_explore" 
+	android:id="@+id/button_explore" 
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent"
+	android:paddingTop="20px" android:paddingBottom="20px"></Button>
+
 </LinearLayout>
