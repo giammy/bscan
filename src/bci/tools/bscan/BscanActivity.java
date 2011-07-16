@@ -79,7 +79,7 @@ public class BscanActivity extends Activity {
         exploreButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
             	startUsingBT();
-                v.setVisibility(View.GONE);
+                //v.setVisibility(View.GONE);
             }
         });
 
