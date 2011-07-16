@@ -15,7 +15,7 @@
  */
 
 /*
- * This code was taken from the Bluetooth chat example
+ * This code was taken from the Bluetooth chat example in Android code
  */
 
 package bci.tools.bscan;

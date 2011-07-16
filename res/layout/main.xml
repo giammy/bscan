@@ -28,6 +28,13 @@
     android:text="@string/is_bt_sw_supported"
     android:paddingTop="10px" android:paddingBottom="10px"/>
 
+<TextView
+    android:id="@+id/text_selected_mac" 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/selected_mac"
+    android:paddingTop="10px" android:paddingBottom="10px"/>
+
 <Button 
 	android:text="@string/button_enablehw" 
 	android:id="@+id/button_enablehw" 

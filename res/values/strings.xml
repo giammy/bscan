@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, BscanActivity!</string>
     <string name="app_name">Bscan</string>
     <string name="None_found">None found</string>
     <string name="Select_device">Select device</string>
@@ -41,5 +40,6 @@
     <string name="yes_bluetooth_hardware">Bluetooth hardware is present</string>
     <string name="no_bluetooth_enabled">Bluetooth is not enabled</string>
     <string name="yes_bluetooth_enabled">Bluetooth is enabled</string>
+    <string name="selected_mac">Currently selected MAC</string>
         
 </resources>

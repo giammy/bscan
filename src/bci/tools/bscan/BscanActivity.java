@@ -1,3 +1,11 @@
+/*
+ * BSCAN - Bluetooth scanning tool
+ * 
+ * Here a Standard GPL header ...
+ * 
+ * Gianluca Moro - giangiammy@gmail.com
+ */
+
 package bci.tools.bscan;
 
 import android.app.Activity;
@@ -13,34 +21,46 @@ import android.widget.TextView;
 public class BscanActivity extends Activity {
 	
 	String TAG = "BSCAN";
+    // Return Intent extra
 	int REQUEST_ENABLE_BT = 1;
+	int REQUEST_DISCOVER_BT = 2;
 	TextView isBTEnabledText;
+	TextView isThereHwText;
+	TextView currentlySelectedMac;
 	
-	public void startUsingBT() {
-		//Intent intent = new Intent(this, BscanStartUsingBTActivity.class);
+	public void doDeviceListActivity() {
+		Log.i(TAG, "Starting DeviceListActivity");
 		Intent intent = new Intent(this, DeviceListActivity.class);
-		startActivity(intent); 
+		startActivityForResult(intent, REQUEST_DISCOVER_BT); 
 	}
 		
-	public void enableBluetooth() {
-		Log.i(TAG, "Enabling BlueTooth");
-		Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-		startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-		Log.i(TAG, "Enabling BlueTooth - asked");
+	public void doEnableBluetooth() {
+		Log.i(TAG, "Starting Enable BlueTooth");
+		Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+		startActivityForResult(intent, REQUEST_ENABLE_BT);
 	}
 	
 	protected void onActivityResult (int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_ENABLE_BT) {
+			String log;
 			if (resultCode == RESULT_OK) {
-				Log.i(TAG, "Bluetooth enable OK.");
-				// launch activity which uses Bluetooth
-				//startUsingBT();
-				isBTEnabledText.setText(R.string.yes_bluetooth_enabled);
+				log = getResources().getText(R.string.yes_bluetooth_enabled).toString();
 			} else {
-				Log.i(TAG, "Bluetooth enable NO.");
-				isBTEnabledText.setText(R.string.no_bluetooth_enabled);
+				log = getResources().getText(R.string.no_bluetooth_enabled).toString();
+			}
+			Log.i(TAG, log);
+			isBTEnabledText.setText(log);
+		}
+		
+		if (requestCode == REQUEST_DISCOVER_BT) {
+			if (resultCode == RESULT_OK) {
+				String selectedMac = data.getStringExtra(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+				currentlySelectedMac = (TextView) findViewById(R.id.text_selected_mac);
+				currentlySelectedMac.setText(getResources().getText(R.string.selected_mac).toString() + 
+						" " + selectedMac);
 			}
 		}
+		
 	}
 
     /** Called when the activity is first created. */
@@ -49,7 +69,7 @@ public class BscanActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        TextView isThereHwText = (TextView) findViewById(R.id.text_hwsupported);
+        isThereHwText = (TextView) findViewById(R.id.text_hwsupported);
         isBTEnabledText = (TextView) findViewById(R.id.text_swenabled);
         
         Log.i(TAG, "Start Bluetooth test."); 
@@ -63,37 +83,32 @@ public class BscanActivity extends Activity {
         	try {
         		if (!mBluetoothAdapter.isEnabled()) {
         			isBTEnabledText.setText(R.string.no_bluetooth_enabled);
-        			enableBluetooth();
+        			doEnableBluetooth();
         		} else {
-        			// launch activity which uses Bluetooth
-        			//startUsingBT();
         			isBTEnabledText.setText(R.string.yes_bluetooth_enabled);
         		}
         	} catch (Exception e) {
         		Log.i(TAG, "java.lang.SecurityException: " + e.getMessage());
         	}
         }
-            
+       
+        // Initialize the button to enable Bluetooth
+        Button enableButton = (Button) findViewById(R.id.button_enablehw);
+        enableButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            	doEnableBluetooth();
+                //v.setVisibility(View.GONE);
+            }
+        });
+        
         // Initialize the button to perform device discovery
         Button exploreButton = (Button) findViewById(R.id.button_explore);
         exploreButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-            	startUsingBT();
+            	doDeviceListActivity();
                 //v.setVisibility(View.GONE);
             }
         });
-
-        
-        
-        // Initialize the button to perform device discovery
-        Button enableButton = (Button) findViewById(R.id.button_enablehw);
-        enableButton.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-            	enableBluetooth();
-                //v.setVisibility(View.GONE);
-            }
-        });
-
         
         Log.i(TAG, "End onCreate.");
     }
