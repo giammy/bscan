@@ -6,6 +6,8 @@
  * Gianluca Moro - giangiammy@gmail.com
  */
 
+/* See GPL site */
+
 package bci.tools.bscan;
 
 import android.app.Activity;
