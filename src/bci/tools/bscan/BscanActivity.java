@@ -1,7 +1,7 @@
 /*
  * BSCAN - Bluetooth scanning tool
  * 
- * Here a Standard GPL header ...
+ * Here a Standard GPL header (to add ...)
  * 
  * Gianluca Moro - giangiammy@gmail.com
  */
